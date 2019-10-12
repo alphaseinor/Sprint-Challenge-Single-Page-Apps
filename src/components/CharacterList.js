@@ -9,14 +9,11 @@ export default function CharacterList() {
   // TODO: Add useState to track data from useEffect
   const [characters, setCharacters] = useState([]);
   const defaultURL = 'https://rickandmortyapi.com/api/character'
-  const [query, setQuery] = useState(defaultURL)
+  //const [query, setQuery] = useState(defaultURL)
 
-  useEffect(() => {
-    // TODO: Add API Request here - must run in `useEffect`
-    //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
-
+  const axiosGetter = q => {
     axios
-      .get(defaultURL)
+      .get(q)
       .then(response => {
         console.log(response.data.results)
         setCharacters(response.data.results)
@@ -24,25 +21,23 @@ export default function CharacterList() {
       .catch(error => {
         console.log(error)
       })
+  }
+
+  useEffect(() => {
+    // TODO: Add API Request here - must run in `useEffect`
+    //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
+    axiosGetter(defaultURL)
+    
 
   }, []);
 
   //handler for query
 
   const modifyQuery = q => {
-    console.log(`Query: ${q}`);
-    setQuery(`${defaultURL}/?name=${q}`)
-    console.log(`New Query ${query}`)
 
-    axios
-      .get(`${defaultURL}/?name=${q}`)
-      .then(response => {
-        console.log(response.data.results)
-        setCharacters(response.data.results)
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    //setQuery(`${defaultURL}/?name=${q}`)
+    axiosGetter(`${defaultURL}/?name=${q}`)
+      
   }
 
   return (
