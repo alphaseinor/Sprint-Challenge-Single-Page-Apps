@@ -34,10 +34,8 @@ export default function CharacterList() {
   //handler for query
 
   const modifyQuery = q => {
-
     //setQuery(`${defaultURL}/?name=${q}`)
     axiosGetter(`${defaultURL}/?name=${q}`)
-      
   }
 
   return (
